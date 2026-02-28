@@ -131,6 +131,7 @@ print(f"Transfer Status: {transfer['status']}")
 ### 5. Recurring Subscriptions 📅
 Easily manage billing cycles. Create a plan once, then subscribe your customers to it. 
 
+```python
 from smartpaystack import Interval
 
 # 1. Create a Plan (e.g., A Pro tier that costs ₦10,000 / month)
@@ -156,6 +157,7 @@ client.disable_subscription(
     email_token="e7x1bejv"
 )
 
+```
 
 
 ## 🛡️ Error Handling
