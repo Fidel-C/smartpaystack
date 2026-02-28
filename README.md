@@ -128,6 +128,36 @@ print(f"Transfer Status: {transfer['status']}")
 
 ---
 
+### 5. Recurring Subscriptions 📅
+Easily manage billing cycles. Create a plan once, then subscribe your customers to it. 
+
+from smartpaystack import Interval
+
+# 1. Create a Plan (e.g., A Pro tier that costs ₦10,000 / month)
+plan = client.create_plan(
+    name="Pro Tier Monthly",
+    amount=10000,
+    interval=Interval.MONTHLY
+)
+plan_code = plan["plan_code"]
+
+# 2. Subscribe a customer to the plan
+# Note: If the customer already has an active authorization (saved card), 
+# you can pass the authorization_code to charge them immediately.
+subscription = client.create_subscription(
+    customer_email="user@email.com",
+    plan_code=plan_code
+)
+print(f"Subscription active: {subscription['status']}")
+
+# 3. Disable a subscription (Requires the sub code and email token from Paystack)
+client.disable_subscription(
+    subscription_code="SUB_vsy1egv220",
+    email_token="e7x1bejv"
+)
+
+
+
 ## 🛡️ Error Handling
 
 When building fintech applications, you must handle failures gracefully. `smartpaystack` provides specific exceptions so you can catch exactly what went wrong.
@@ -254,7 +284,9 @@ def paystack_webhook(request):
         
     return JsonResponse({"status": "success"}, status=200)
 
-```
+
 
 ```
+
+
 
